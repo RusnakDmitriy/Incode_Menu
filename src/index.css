@@ -1,0 +1,118 @@
+body {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+p{
+  margin: 0;
+  padding: 0;
+}
+
+#root{
+  height: inherit;
+}
+
+.mainScreen{
+  height: inherit;
+  background: aqua;
+}
+
+.mainMenu{
+  height: 30px;
+  background: grey;
+  color: #fff;
+}
+
+.mainMenu>div{
+  display: inline-block;
+  margin: 5px;
+}
+
+.mainMenu>div:first-child{
+  float: left;
+}
+
+.mainMenu>div:nth-child(2){
+  float: right;
+}
+
+.menuItem{
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.listScreen{
+  height: calc(100% - 30px);
+  position: relative;
+}
+
+.listOfItems{
+  height: 90%;
+  width: 90%;
+  margin: 0;
+  box-sizing: border-box;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.listItem{
+  float: left;
+  width: 45%;
+  height: 40%;
+  background: blue;
+  margin: 2%;
+  color: aqua;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.menuNumber{
+  position: absolute;
+  top:0;
+  right: 0;
+  font-size: 25px;
+  color: white;
+  padding: 3px;
+}
+
+.listOfDishes{
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.listOfDishes.menuActive{
+  /*border: 2px solid red;*/
+  background: green;
+}
+
+.listOfDishes>ul{
+  height: inherit;
+}
+
+.dish{
+  height: 25%;
+  padding-left: 10px;
+  position: relative;
+}
+
+.dish>div{
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.dish span{
+  display: inline-block;
+}
+
+.dish span:first-child{
+  margin-right: 20px;
+}
+
+.dish span:first-child img{
+  background: url("./img/food1.jpg");
+}
