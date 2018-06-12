@@ -1,28 +1,23 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Route, Redirect} from  'react-router-dom';
-import {signup} from '../AC';
+//import {signup} from '../AC';
 
-class Signup extends Component{
+class Signin extends Component{
     constructor(props){
         super(props);
         this.state={
             email:'',
-            password:'',
-            reppassword: '',
-            alert: false
+            password:''
         }
     }
 
-    handleSignUp=()=>{
+    handleSignIn=()=>{
         this.props.signup(this.state);
         this.setState({
             email:'',
-            password:'',
-            reppassword: '',
-            alert: false
+            password:''
         });
-        this.state.password===this.state.reppassword && this.state.password!=='' ? this.props.history.push('/emailverification') : this.setState({alert:true});
     }
 
     handleChangeUsername=(ev)=>{
@@ -35,30 +30,23 @@ class Signup extends Component{
         this.setState({password:target.value});
     }
 
-    handleChangeRepPassword=(ev)=>{
-        let target=ev.target;
-        this.setState({reppassword:target.value});
-    }
-
-    handleSignIn=()=>{
-        this.props.history.push('/signin')
+    handleSignUp=()=>{
+        this.props.history.push('/signup')
     }
 
     render(){
-        const {email, password, reppassword, alert}=this.state;
+        const {email, password}=this.state;
 
         return (
             <div className="registrationForm">
-                <h3>Register with "Lunch Menu" app</h3>
+                <h3>Sign into "Lunch Menu" app</h3>
                 <div className="fieldsForm">
                     <div><span className='authLable'>Email: </span><input type='text' value={email} onChange={this.handleChangeUsername} /></div>
                     <div><span className='authLable'>Password: </span><input type='password' value={password} onChange={this.handleChangePassword} /></div>
-                    <div><span className='authLable'>Repeat password: </span><input type='password' value={reppassword} onChange={this.handleChangeRepPassword} /></div>
                 </div>
                 <div className="btnForm">
-                    <button onClick={this.handleSignUp}>Sign Up</button>
-                    <div>You alreade have account? Please, <span onClick={this.handleSignIn}>sign in</span></div>
-                    {!alert ? (<div></div>) : (<div>Please enter password end repeat it exactly again</div>)}
+                    <button onClick={this.handleSignIn}>Sign In</button>
+                    <div>You alreade have account? Please, <span onClick={this.handleSignUp}>sign up</span></div>
                 </div>
             </div>
         )
@@ -70,5 +58,5 @@ export default connect((state)=>{
         registration: state.registration
     }
 }, (dispatch)=>({
-    signup: (user)=>dispatch(signup(user))
-}))(Signup)
+    //signup: (user)=>dispatch(signup(user))
+}))(Signin)
