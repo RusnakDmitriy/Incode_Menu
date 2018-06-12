@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ListOfItems from './ListOfItems';
-
+import {menu} from '../dataMenu';
+import {connect} from "react-redux";
+import {getMenuItem} from '../AC';
 
 
 class HomePage extends Component {
@@ -11,15 +13,16 @@ class HomePage extends Component {
         }
     }
 
-    handleChoiceMenu=(i)=>{
-        this.setState({active: i});
+    handleChoiceMenu=(id)=>{
+        this.setState({active: id});
+        this.props.getMenuItem(id, 'Rusnak Dmitriy')
     }
 
     render() {
-        const getList = this.props.list.map((item,i)=>{
-            return <li key={i} className="listItem" onClick={()=>this.handleChoiceMenu(i)}>
-                        <ListOfItems isActive={i===this.state.active}  item={item} />
-                        <div className="menuNumber">{i+1}</div>
+        const getList = menu.map((item)=>{
+            return <li key={item.id} className="listItem" onClick={()=>this.handleChoiceMenu(item.id)}>
+                        <ListOfItems isActive={item.id===this.state.active}  item={item.list} />
+                        <div className="menuNumber">{item.id}</div>
                     </li>
         })
 
@@ -34,4 +37,4 @@ class HomePage extends Component {
     }
 }
 
-export default HomePage;
+export default connect(null, {getMenuItem})(HomePage);
