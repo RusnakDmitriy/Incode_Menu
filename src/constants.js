@@ -1,1 +1,2 @@
 export const MENU_CHOICE = 'MENU_CHOICE';
+export const REGISTRATION = 'REGISTRATION';

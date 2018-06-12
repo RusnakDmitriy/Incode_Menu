@@ -3,6 +3,7 @@ import ListOfItems from './ListOfItems';
 import {menu} from '../dataMenu';
 import {connect} from "react-redux";
 import {getMenuItem} from '../AC';
+import MainMenu from './MainMenu';
 
 
 class HomePage extends Component {
@@ -29,6 +30,7 @@ class HomePage extends Component {
 
         return (
             <div className="listScreen">
+                <MainMenu />
                 <ul className="listOfItems clearfix">
                     {getList}
                 </ul>
@@ -38,3 +40,4 @@ class HomePage extends Component {
 }
 
 export default connect(null, {getMenuItem})(HomePage);
+
