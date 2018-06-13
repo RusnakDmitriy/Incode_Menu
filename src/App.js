@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import {Router, Route, Switch, Redirect} from  'react-router-dom';
+import {Route, Switch, Redirect} from  'react-router-dom';
 import {ConnectedRouter} from 'react-router-redux';
 import history from './history';
 import {connect} from "react-redux";
 import HomePage from './components/HomePage';
 import Signup from './components/Signup';
 import Signin from './components/Signin';
+import NotFound from './components/NotFound';
 import verification from './components/verification';
 
 
@@ -15,26 +16,23 @@ class App extends Component {
     }
 
     render(){
-        console.log(this.props.registration);
         return (
             <div className="mainScreen">
-                <Router history={history}>
+                <ConnectedRouter history={history}>
                     <Switch>
-                        <Route exact path='/' render={()=>(
-                            this.props.registration.email===undefined ? (<Redirect to='/homepage' />) : (<Redirect to='/signup' />)
-                        )} />
-                        <Route path="/homepage" component={HomePage} />
                         <Route path="/signup" component={Signup} />
-                        <Route path="/signin" component={Signin} />
-                        <Route path="/emailverification" component={verification} />
+                        <Route path="/signin" component={Signin}/>
+                        <Route path="/emailverification" component={verification}/>
+                        {!this.props.registration.email && (<Redirect to='/signup' />)}
+                        <Route path="/" component={HomePage} exact/>
+                        {/*<Redirect from ="*" to='/404.html' />*/}
+                        <Route path="*" component={NotFound}/>
                     </Switch>
-                </Router>
+                </ConnectedRouter>
             </div>
         )
     }
 }
-
-
 
 export default connect((state)=>{
     return {

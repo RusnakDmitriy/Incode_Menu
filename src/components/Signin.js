@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Route, Redirect} from  'react-router-dom';
+import {NavLink} from  'react-router-dom';
 //import {signup} from '../AC';
 
 class Signin extends Component{
@@ -30,10 +30,6 @@ class Signin extends Component{
         this.setState({password:target.value});
     }
 
-    handleSignUp=()=>{
-        this.props.history.push('/signup')
-    }
-
     render(){
         const {email, password}=this.state;
 
@@ -46,7 +42,7 @@ class Signin extends Component{
                 </div>
                 <div className="btnForm">
                     <button onClick={this.handleSignIn}>Sign In</button>
-                    <div>You alreade have account? Please, <span onClick={this.handleSignUp}>sign up</span></div>
+                    <div>You alreade have account? Please, <NavLink to="/signup">sign up</NavLink></div>
                 </div>
             </div>
         )
