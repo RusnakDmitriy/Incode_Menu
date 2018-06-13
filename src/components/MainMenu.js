@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {NavLink} from  'react-router-dom';
 
 class MainMenu extends Component {
     constructor(props){
@@ -16,7 +17,7 @@ class MainMenu extends Component {
                 <div>
                     <span className="menuItem">Balance: </span>
                     <span className="menuItem">e-mail: someone@somewhere.com</span>
-                    <span className="menuItem">Signout</span>
+                    <span className="menuItem"><NavLink to="/signin">Signout</NavLink></span>
                 </div>
             </div>
         );

@@ -15,14 +15,21 @@ class Signup extends Component{
     }
 
     handleSignUp=()=>{
-        this.props.signup(this.state);
-        this.setState({
-            email:'',
-            password:'',
-            reppassword: '',
-            alert: false
-        });
-        this.state.password===this.state.reppassword && this.state.password!=='' ? this.props.history.push('/emailverification') : this.setState({alert:true});
+        const {signup}=this.props;
+
+        if(this.state.password===this.state.reppassword && this.state.password!==''){
+            signup(this.state);
+            this.setState({alert:true});
+            this.props.history.push('/verificationMessage');
+            this.setState({
+                email:'',
+                password:'',
+                reppassword: '',
+                alert: false
+            });
+        } else {
+            this.setState({alert: true})
+        }
     }
 
     handleChangeUsername=(ev)=>{

@@ -1,23 +1,26 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {NavLink} from  'react-router-dom';
-//import {signup} from '../AC';
+import {verify} from "../AC";
 
 class Signin extends Component{
     constructor(props){
         super(props);
         this.state={
             email:'',
-            password:''
+            password:'',
+            authToken: localStorage.getItem('incodeMenu')
         }
     }
 
     handleSignIn=()=>{
-        this.props.signup(this.state);
-        this.setState({
-            email:'',
-            password:''
-        });
+        if(this.state.email!=='' && this.state.password!==''){
+            this.props.verify(this.state);
+            this.setState({
+                email:'',
+                password:''
+            });
+        }
     }
 
     handleChangeUsername=(ev)=>{
@@ -54,5 +57,5 @@ export default connect((state)=>{
         registration: state.registration
     }
 }, (dispatch)=>({
-    //signup: (user)=>dispatch(signup(user))
+    verify: (data)=>dispatch(verify(data))
 }))(Signin)

@@ -1,5 +1,5 @@
-import {MENU_CHOICE} from '../constants';
-import {REGISTRATION} from '../constants';
+import {MENU_CHOICE, REGISTRATION, SUCCESS, FAIL, AUTHENTICATION, ENTER} from '../constants';
+import { push } from 'react-router-redux';
 
 export function getMenuItem(item, user){
     return {
@@ -8,9 +8,45 @@ export function getMenuItem(item, user){
     }
 }
 
-export function signup(userData){
+ export function signup(userData){
     return {
-        type: REGISTRATION,
-        payload: {userData}
+         type: REGISTRATION,
+         payload: {userData},
+         statusID: true
+     }
+}
+
+export function verify(data){
+    return (dispatch)=>{
+        dispatch({
+            type: AUTHENTICATION,
+            payload: {data}
+        })
+
+        const requestOptions = {
+            method:'POST',
+            headers: {
+                "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+            },
+            body: `email=${localStorage.getItem('incodeMenuEmail')}&password=${localStorage.getItem('incodeMenuPass')}&authToken=${localStorage.getItem('incodeMenu')}`
+        };
+
+        fetch('http://localhost:3000', requestOptions)
+            //.then(res=>res.json())
+            .then(response=> {
+                dispatch(push('/'));
+                dispatch({
+                    type: ENTER + SUCCESS,
+                    payload: {data},
+                    enter: true
+                })
+
+            })
+            .catch(error=>dispatch({
+                type: ENTER+FAIL,
+                payload: {data,error},
+                enter: true
+            }))
+
     }
 }

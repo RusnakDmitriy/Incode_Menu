@@ -64,11 +64,12 @@ p{
   float: left;
   width: 45%;
   height: 40%;
+  position: relative;
   background: blue;
   margin: 2%;
   color: aqua;
   box-sizing: border-box;
-  position: relative;
+  border-radius: 5px;
 }
 
 .menuNumber{
@@ -83,6 +84,7 @@ p{
 .listOfDishes{
   height: 100%;
   box-sizing: border-box;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
 .listOfDishes.menuActive{
@@ -128,6 +130,7 @@ p{
   background: aquamarine;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
   padding: 10px;
+  border-radius: 5px;
 }
 
 .registrationForm>h3, .btnForm{
