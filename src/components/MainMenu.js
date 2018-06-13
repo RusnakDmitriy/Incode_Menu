@@ -10,9 +10,9 @@ class MainMenu extends Component {
         return (
             <div className="mainMenu clearfix">
                 <div>
-                    <span className="menuItem">Home</span>
-                    <span className="menuItem">Statistics</span>
-                    <span className="menuItem">Admin</span>
+                    <span className="menuItem"><NavLink exact activeStyle={{color:'blue'}} to='/'>Home</NavLink></span>
+                    <span className="menuItem"><NavLink activeStyle={{color:'blue'}} to='/statistic'>Statistics</NavLink></span>
+                    <span className="menuItem"><NavLink activeStyle={{color:'blue'}} to='/admin'>Admin</NavLink></span>
                 </div>
                 <div>
                     <span className="menuItem">Balance: </span>

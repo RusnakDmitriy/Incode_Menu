@@ -7,9 +7,10 @@ import HomePage from './components/HomePage';
 import Signup from './components/Signup';
 import Signin from './components/Signin';
 import EmailVerification from './components/EmailVerification';
+import MainAdminPage from './components/MainAdminPage';
+import StatisticPage from './components/StatisticPage';
 import NotFound from './components/NotFound';
 import verification from './components/verification';
-
 
 class App extends Component {
     constructor(props){
@@ -25,6 +26,8 @@ class App extends Component {
                         <Route path="/signup" component={Signup} />
                         <Route path="/signin" component={Signin}/>
                         <Route path="/verificationMessage" component={verification}/>
+                        <Route path="/admin" component={MainAdminPage}/>
+                        <Route path="/statistic" component={StatisticPage}/>
                         <Route path={`/auth/${localStorage.getItem('incodeMenu')}`} component={EmailVerification}/>
                         {(localStorage.getItem('incodeMenu')===this.props.registration.authToken) && (<Redirect to={`/auth/${this.props.registration.authToken}`} />)}
                         {!this.props.enter.email && (<Redirect to='/signup' />)}
