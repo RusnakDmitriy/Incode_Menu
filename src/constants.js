@@ -4,3 +4,4 @@ export const SUCCESS = '_SUCCESS';
 export const FAIL = '_FAIL';
 export const AUTHENTICATION = 'AUTHENTICATION';
 export const ENTER = 'ENTER';
+export const ADMIN_MENU_SELECT = 'ADMIN_MENU_SELECT';

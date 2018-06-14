@@ -8,16 +8,14 @@ class ListOfItemsForAdmin extends Component {
     }
 
     render() {
-        const {items, id}=this.props;
+        const {items, id, isActive}=this.props;
 
         return (
             <div className="listOfDishes">
                 <ul>
                     {items.map((item, i)=>{return  <li key={i} className="dish">
                         <div>
-                            {/*<span><img src="" alt="img" /></span>*/}
-                            <span><ItemMenuAdmin text={item} /></span>
-                            {/*<span><FormSelect selected={select} onChangeSelect={this.handleChangeSelect} text={item.text} /></span>*/}
+                            <span><ItemMenuAdmin isActive={isActive} id={id} text={item} /></span>
                         </div>
                     </li>})
                     }
