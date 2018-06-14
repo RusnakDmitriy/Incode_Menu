@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import FormSelect from './FormSelect';
 import ItemMenuAdmin from './ItemMenuAdmin';
 
 class ListOfItemsForAdmin extends Component {

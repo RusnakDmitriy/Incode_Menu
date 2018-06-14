@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MainMenu from './MainMenu';
 import ListOfItemsForAdmin from './ListOfItemsForAdmin';
+import ListOfUsersBalance from './ListOfUsersBalance';
 import {menuAdmin} from '../dataMenu';
 
 class MainAdminPage extends Component {
@@ -27,10 +28,12 @@ class MainAdminPage extends Component {
         return (
             <div className="mainScreen">
                 <MainMenu />
-                <button onClick={this.handleBlock}>{block ? "Блок вкл." : "Блок выкл."}</button>
+                <div><button onClick={this.handleBlock}>{block ? "Блок вкл." : "Блок выкл."}</button></div>
                 <ul className="listOfItems clearfix">
                     {getList}
                 </ul>
+                <ListOfUsersBalance />
+                <button>Оформить заказ</button>
             </div>
         )
     }

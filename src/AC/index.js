@@ -1,4 +1,4 @@
-import {MENU_CHOICE, REGISTRATION, SUCCESS, FAIL, AUTHENTICATION, ENTER, ADMIN_MENU_SELECT} from '../constants';
+import {MENU_CHOICE, REGISTRATION, SUCCESS, FAIL, AUTHENTICATION, ENTER, ADMIN_MENU_SELECT, GET_USERS_LIST} from '../constants';
 import { push } from 'react-router-redux';
 
 export function getMenuItem(item, user){
@@ -55,5 +55,12 @@ export function adminSelectMenu(id, index, selected){
     return {
         type: ADMIN_MENU_SELECT,
         payload: {id, index, selected}
+    }
+}
+
+export function getUsersFromStore(usersList){
+    return {
+        type: GET_USERS_LIST,
+        payload: {usersList}
     }
 }
