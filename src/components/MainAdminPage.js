@@ -13,7 +13,8 @@ class MainAdminPage extends Component {
     }
 
     handleBlock=()=>{
-        this.setState({block: !this.state.block})
+        this.setState({block: !this.state.block});
+        console.log('dfsfdsfsdfsf')
     }
 
     render(){
@@ -26,12 +27,14 @@ class MainAdminPage extends Component {
         });
 
         return (
-            <div className="mainScreen">
+            <div className="mainAdminScreen">
                 <MainMenu />
-                <div><button onClick={this.handleBlock}>{block ? "Блок вкл." : "Блок выкл."}</button></div>
-                <ul className="listOfItems clearfix">
-                    {getList}
-                </ul>
+                <div className="blockButton"><button onClick={this.handleBlock}>{block ? "Блок вкл." : "Блок выкл."}</button></div>
+                <div className="selectedMenu">
+                    <ul className="listOfAdmitItems clearfix">
+                        {getList}
+                    </ul>
+                </div>
                 <ListOfUsersBalance />
                 <button>Оформить заказ</button>
             </div>

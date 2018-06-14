@@ -10,7 +10,6 @@ class ListOfUsersBalance extends Component {
 
     componentDidMount(){
         this.props.getUsersFromStore(usersList);
-        console.log(usersList)
     }
 
     render() {
@@ -20,7 +19,7 @@ class ListOfUsersBalance extends Component {
         });
 
         return (
-            <div className="listOfDishes">
+            <div className="usersList">
                 <ul>
                     {getUsersList}
                 </ul>
