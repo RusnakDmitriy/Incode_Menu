@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
+// import {toJS} from 'immutable';
 import {usersList} from '../dataMenu';
 import {getUsersFromStore} from '../AC';
+import InputChangeBalance from "./InputChangeBalance";
 
 class ListOfUsersBalance extends Component {
     constructor(props){
@@ -12,10 +14,11 @@ class ListOfUsersBalance extends Component {
         this.props.getUsersFromStore(usersList);
     }
 
+
     render() {
         const {usersList}=this.props;
         const getUsersList = usersList.map((item)=>{
-            return <li key={item.id}><span>{item.data.email}</span><span><input type="text" value={item.data.balance} /></span></li>
+            return <li key={item.id}><span>{item.data.email}</span><span><InputChangeBalance id={item.id} /></span></li>
         });
 
         return (

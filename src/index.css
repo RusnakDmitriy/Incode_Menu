@@ -117,7 +117,7 @@ p{
 }
 
 .dish span:first-child img{
-  background: url("./img/food1.jpg");
+  /*background: url("./img/food1.jpg");*/      /*TODO change sosme later*/
 }
 
 .registrationForm{
@@ -174,8 +174,9 @@ p{
 
 .blockButton{
   width: 150px;
-  height: 100vh;
+  height: 100%;
   position: fixed;
+    z-index: 5;
 }
 
 .blockButton>button{
@@ -188,4 +189,33 @@ p{
 .usersList{
   margin: 30px 0 40px;
   text-align: center;
+}
+
+.modal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1111;
+    width: 200px;
+    background: aquamarine;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.modal>div{
+    margin: 10px 0;
+}
+
+.modal button{
+    margin: 15px 0;
+}
+
+.notActive{
+    z-index: 11;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: rgba(255, 255, 255, .6);
 }

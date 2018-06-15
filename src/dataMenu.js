@@ -261,4 +261,11 @@ export const usersList=[
         "id": 15,
         "data": {"email": "someone15@email.com", "balance": 0}
     }
+];
+
+export const menuQuantity = [
+    {'id': 1, 'quantity': 3},
+    {'id': 2, 'quantity': 12},
+    {'id': 3, 'quantity': 15},
+    {'id': 4, 'quantity': 8}
 ]

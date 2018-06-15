@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import {connect} from "react-redux";
 import FormSelect from './FormSelect';
 import {adminSelectMenu} from '../AC';
-import adminSelectedMenu from "../reducers/adminSelectedMenu";
-
 
 class ItemMenuAdmin extends Component {
     constructor(props){

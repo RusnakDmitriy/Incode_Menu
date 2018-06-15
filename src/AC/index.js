@@ -1,4 +1,4 @@
-import {MENU_CHOICE, REGISTRATION, SUCCESS, FAIL, AUTHENTICATION, ENTER, ADMIN_MENU_SELECT, GET_USERS_LIST} from '../constants';
+import {MENU_CHOICE, REGISTRATION, SUCCESS, FAIL, AUTHENTICATION, ENTER, ADMIN_MENU_SELECT, GET_USERS_LIST, CHANGE_USER_BALANCE, CHECKOUT, CANCEL_CHECKOUT} from '../constants';
 import { push } from 'react-router-redux';
 
 export function getMenuItem(item, user){
@@ -62,5 +62,24 @@ export function getUsersFromStore(usersList){
     return {
         type: GET_USERS_LIST,
         payload: {usersList}
+    }
+}
+
+export function changeUserBalance(id, balance){
+    return {
+        type: CHANGE_USER_BALANCE,
+        payload: {id, balance}
+    }
+}
+
+export function checkout(){
+    return {
+        type: CHECKOUT
+    }
+}
+
+export function cancelCheckout(){
+    return {
+        type: CANCEL_CHECKOUT
     }
 }
