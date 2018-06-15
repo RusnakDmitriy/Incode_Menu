@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import {connect} from "react-redux";
 import {NavLink} from  'react-router-dom';
 import {loadUsersOrderList} from '../AC';
-import usersOrderList from "../reducers/usersOrderList";
 import {paginationUsersOrderSelector} from '../selectors';
+import UsersOrdersListItem from './UsersOrdersListItem';
 
 class StatisticPaginator extends Component {
     constructor(props){
@@ -17,10 +17,10 @@ class StatisticPaginator extends Component {
 
     getUsersOrdersList(){
         const {usersOrderList}=this.props;
-        const ordersList = usersOrderList.map((item, i) => {return <li key={i}>
-                                                                            <span>{item.date}</span>
-                                                                            <span>{item.menuNumber}</span>
-                                                                            <span>{item.dishes}</span>
+        const ordersList = usersOrderList.map((item, i) => {return <li className="statisticTableLine" key={i}>
+                                                                            <span className="statisticTableColumnData">{item.date}</span>
+                                                                            <span className="statisticTableColumnNumb">{item.menuNumber}</span>
+                                                                            <span className="statisticTableColumnDish"><UsersOrdersListItem dishes={item.dishes} /></span>
                                                                         </li>});
         return <ul>{ordersList}</ul>
     }
@@ -28,17 +28,17 @@ class StatisticPaginator extends Component {
     getpaginationPages(){
         const {totalLength}=this.props;
         const commentsPageAmount = Math.ceil(totalLength/5);
-        const paginationPages = [...Array(commentsPageAmount)].map((numb,index) => {return <li key={index}><NavLink activeStyle={{color:'red'}} to={`/statistic/${index+1}`}>{index+1}</NavLink></li>});
-        return <ul>{paginationPages}</ul>
+        const paginationPages = [...Array(commentsPageAmount)].map((numb,index) => {return <span key={index}><NavLink activeStyle={{color:'red'}} to={`/statistic/${index+1}`}>{index+1}</NavLink></span>});
+        return <div className="paginationPages">Page: {paginationPages}</div>
     }
 
     render(){
         return (
-            <div className="mainScreen">
+            <div className="statisticTable">
                 <div>
-                    <span>Дата</span>
-                    <span>Номер меню</span>
-                    <span>Блюда</span>
+                    <span className="statisticTableColumnData">Дата</span>
+                    <span className="statisticTableColumnNumb">Номер меню</span>
+                    <span className="statisticTableColumnDish">Блюда</span>
                 </div>
                 {this.getUsersOrdersList()}
                 {this.getpaginationPages()}

@@ -219,3 +219,52 @@ p{
     width: 100%;
     background: rgba(255, 255, 255, .6);
 }
+
+.mainScreenStatistic{
+  height: 100vh;
+  background: aqua;
+  position: relative;
+  text-align: center;
+}
+
+.statisticTable{
+  position: absolute;
+  width: 70%;
+  height: 60%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  padding: 40px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  background: aquamarine;
+}
+
+.statisticTable span{
+  display: inline-block;
+}
+
+.statisticTable>ul{
+  margin-bottom: 70px;
+}
+
+.statisticTableColumnData, .statisticTableColumnNumb{
+  width: 20%;
+}
+
+.statisticTableColumnDish{
+  width: 60%;
+}
+
+.statisticTableLine{
+  margin: 40px 0;
+}
+
+.paginationPages{
+  margin-top: 20px;
+}
+
+.paginationPages>span{
+  margin: 0 5px;
+}
