@@ -18,7 +18,7 @@ class InputChangeBalance extends Component {
 
     render() {
         return (
-            <div>
+            <div className="usersListChangeBalance">
                 <input type="type" value={this.state.balance} onChange={this.handleChangeBalance} />
             </div>
         );

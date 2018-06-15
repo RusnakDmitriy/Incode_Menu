@@ -18,7 +18,7 @@ class ListOfUsersBalance extends Component {
     render() {
         const {usersList}=this.props;
         const getUsersList = usersList.map((item)=>{
-            return <li key={item.id}><span>{item.data.email}</span><span><InputChangeBalance id={item.id} /></span></li>
+            return <li className="usersListItem" key={item.id}><span>{item.data.email}:   </span><span><InputChangeBalance id={item.id} /></span></li>
         });
 
         return (
