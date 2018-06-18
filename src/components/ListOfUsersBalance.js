@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
-// import {toJS} from 'immutable';
+//import {toJS} from 'immutable';
 import {usersList} from '../dataMenu';
 import {getUsersFromStore} from '../AC';
 import InputChangeBalance from "./InputChangeBalance";
