@@ -1,5 +1,6 @@
 export const MENU_CHOICE = 'MENU_CHOICE';
 export const REGISTRATION = 'REGISTRATION';
+export const START = '_START';
 export const SUCCESS = '_SUCCESS';
 export const FAIL = '_FAIL';
 export const AUTHENTICATION = 'AUTHENTICATION';
@@ -10,3 +11,4 @@ export const CHANGE_USER_BALANCE = 'CHANGE_USER_BALANCE';
 export const CHECKOUT = 'CHECKOUT';
 export const CANCEL_CHECKOUT = 'CANCEL_CHECKOUT';
 export const LOAD_USERS_PAGINATION = 'LOAD_USERS_PAGINATION';
+export const LOAD_AVAILABLE = 'LOAD_AVAILABLE';

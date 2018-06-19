@@ -5,10 +5,16 @@ const menuSchema = new mongoose.Schema({
     text: {type: String, default: "Наваристый суп харчо"}
 });
 
-const usersMenuSchema = mongoose.Schema({
+const menuItemSchema = new mongoose.Schema({
     id: Number,
     list: [menuSchema, menuSchema, menuSchema, menuSchema]
 });
+
+// const usersMenuSchema = mongoose.Schema({
+//     id: [menuItemSchema, menuItemSchema, menuItemSchema, menuItemSchema]
+// })
+
+const usersMenuSchema = mongoose.Schema([menuItemSchema, menuItemSchema, menuItemSchema, menuItemSchema])
 
 const usersMenu = mongoose.model('usersMenu', usersMenuSchema);
 

@@ -5,6 +5,7 @@ import authentification from './authentification';
 import enter from './enter';
 import adminSelectedMenu from './adminSelectedMenu';
 import usersList from './usersList';
+import getAvailableMenu from './getAvailableMenu';
 import checkout from './checkout';
 import usersOrderList from './usersOrderList';
 import {routerReducer} from 'react-router-redux';
@@ -16,6 +17,7 @@ export default combineReducers({
     enter,
     adminSelectedMenu,
     usersList,
+    getAvailableMenu,
     usersOrderList,
     checkout,
     router: routerReducer
