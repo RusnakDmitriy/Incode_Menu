@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ListOfItems from './ListOfItems';
-import {menu} from '../dataMenu';
+//import {menu} from '../dataMenu';
 import {connect} from "react-redux";
 import {getMenuItem} from '../AC';
 import {getAvailableMenu} from '../AC';

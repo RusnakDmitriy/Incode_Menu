@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-export default function usersOrdersListItem(props){
-    console.log(props.dishes);
+export default function UsersOrdersListItem(props){
+
     const getItem=props.dishes.map((item, i)=>{
         return <span key={i}>{item}, </span>
     })

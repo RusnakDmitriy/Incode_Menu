@@ -4,8 +4,9 @@ import MainMenu from './MainMenu';
 import ListOfItemsForAdmin from './ListOfItemsForAdmin';
 import ListOfUsersBalance from './ListOfUsersBalance';
 import OrderWindow from './OrderWindow';
-import {menuAdmin} from '../dataMenu';
-import {checkout} from '../AC';
+//import {menuAdmin} from '../dataMenu';
+import {checkout, getMenuForAdmin} from '../AC';
+import {toJS} from 'immutable';
 
 class MainAdminPage extends Component {
     constructor(props){
@@ -13,6 +14,10 @@ class MainAdminPage extends Component {
         this.state={
             block: false
         }
+    }
+
+    componentDidMount(){
+        this.props.getMenuForAdmin();
     }
 
     handleBlock=()=>{
@@ -25,14 +30,15 @@ class MainAdminPage extends Component {
 
     render(){
         const {block}=this.state;
-        const {modal}=this.props;
+        const {modal, menuAdmin, loading, loaded}=this.props;
+        if(loading) return <div>Loading...</div>;
         const getList = menuAdmin.map((item)=>{
             return <li key={item.id} className="listItem">
                         <ListOfItemsForAdmin isActive={block} items={item.list} id={item.id}/>
                         <div className="menuNumber">{item.id}</div>
                     </li>
         });
-
+        console.log(this.props.admin.toJS());
         return (
             <div className="mainAdminScreen">
                 {modal.checkout ? (<div className="notActive"></div>) : (<div></div>)}
@@ -53,9 +59,13 @@ class MainAdminPage extends Component {
 
 const mapStateToProps=(state)=>{
     return {
-        modal: state.checkout
+        modal: state.checkout,
+        admin: state.adminSelectedMenu.entities,
+        menuAdmin: state.menuForAdmin.entities,
+        loading: state.menuForAdmin.loading,
+        loaded: state.menuForAdmin.loaded
     }
 }
 
-export default connect(mapStateToProps, {checkout})(MainAdminPage);
+export default connect(mapStateToProps, {checkout, getMenuForAdmin})(MainAdminPage);
 

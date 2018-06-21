@@ -1,4 +1,4 @@
-import {MENU_CHOICE, LOAD_AVAILABLE, LOAD_USERS_PAGINATION, REGISTRATION, START, SUCCESS, FAIL, AUTHENTICATION, ENTER, ADMIN_MENU_SELECT, GET_USERS_LIST, CHANGE_USER_BALANCE, CHECKOUT, CANCEL_CHECKOUT} from '../constants';
+import {MENU_CHOICE, GET_MENU_FOR_ADMIN, LOAD_AVAILABLE, LOAD_USER_ORDER_LIST, LOAD_USERS_PAGINATION, REGISTRATION, START, SUCCESS, FAIL, AUTHENTICATION, ENTER, ADMIN_MENU_SELECT, GET_USERS_LIST, CHANGE_USER_BALANCE, CHECKOUT, CANCEL_CHECKOUT} from '../constants';
 import { push } from 'react-router-redux';
 
 export function getMenuItem(item, user){
@@ -97,7 +97,7 @@ export function getAvailableMenu(){
             type: LOAD_AVAILABLE+START
         });
 
-        fetch(`http://localhost:8000/api`)
+        fetch(`http://localhost:3017/api`)
             .then(res=>{
                 if(res.status>=400){
                     throw new Error(res.statusText)
@@ -115,4 +115,54 @@ export function getAvailableMenu(){
                 })
             })
     }
-}
+};
+
+export function getUserOrderList(userData){
+    return (dispatch)=>{
+        dispatch({
+            type: LOAD_USER_ORDER_LIST+START,
+            payload: userData
+        });
+
+        fetch(`http://localhost:3017/api/userOrderList/${userData}`)
+            .then(res=>{
+                if(res.status>=400){
+                    throw new Error(res.statusText)
+                }
+                return res.json()
+            })
+            .then(response=>dispatch({
+                type: LOAD_USER_ORDER_LIST+SUCCESS,
+                payload: {userData, response}
+            }))
+            .catch(error=>dispatch({
+                type: LOAD_USER_ORDER_LIST+FAIL,
+                payload: {userData, error}
+            }))
+    }
+};
+
+export function getMenuForAdmin(){
+    return (dispatch)=>{
+        dispatch({
+            type: GET_MENU_FOR_ADMIN+START
+        });
+
+        fetch('http://localhost:3017/api/adminSelectMenu')
+            .then(res=>{
+                if(res.status>=400){
+                    throw new Error(res.statusText)
+                }
+                return res.json()
+            })
+            .then(response=>dispatch({
+                type: GET_MENU_FOR_ADMIN+SUCCESS,
+                payload: response
+            }))
+            .catch(error=>dispatch({
+                type: GET_MENU_FOR_ADMIN+FAIL,
+                payload: error
+            }))
+    }
+};
+

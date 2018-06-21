@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
 import {NavLink} from  'react-router-dom';
-import {loadUsersOrderList} from '../AC';
+import {loadUsersOrderList, getUserOrderList} from '../AC';
 import {paginationUsersOrderSelector} from '../selectors';
 import UsersOrdersListItem from './UsersOrdersListItem';
 
@@ -11,13 +11,15 @@ class StatisticPaginator extends Component {
     }
 
     componentDidMount(){
-        const {loadUsersOrderList, page} = this.props;
+        const {loadUsersOrderList, getUserOrderList, page} = this.props;
+        getUserOrderList(localStorage.getItem('incodeMenuEmail'));
         loadUsersOrderList(page)
     }
 
     getUsersOrdersList(){
         const {usersOrderList}=this.props;
-        const ordersList = usersOrderList.map((item, i) => {return <li className="statisticTableLine" key={i}>
+        console.log(usersOrderList[0]);
+        const ordersList = usersOrderList.map((item, i) => {console.log(item); return <li className="statisticTableLine" key={i}>
                                                                             <span className="statisticTableColumnData">{item.date}</span>
                                                                             <span className="statisticTableColumnNumb">{item.menuNumber}</span>
                                                                             <span className="statisticTableColumnDish"><UsersOrdersListItem dishes={item.dishes} /></span>
@@ -26,7 +28,9 @@ class StatisticPaginator extends Component {
     }
 
     getpaginationPages(){
-        const {totalLength}=this.props;
+        // const {totalLength}=this.props;
+        const {usersOrderList}=this.props;
+        const totalLength = (usersOrderList) ? 0 : usersOrderList.order.length;
         const commentsPageAmount = Math.ceil(totalLength/5);
         const paginationPages = [...Array(commentsPageAmount)].map((numb,index) => {return <span key={index}><NavLink activeStyle={{color:'red'}} to={`/statistic/${index+1}`}>{index+1}</NavLink></span>});
         return <div className="paginationPages">Page: {paginationPages}</div>
@@ -50,8 +54,8 @@ class StatisticPaginator extends Component {
 const mapStateToProps=(state)=>{
     return {
         usersOrderList: paginationUsersOrderSelector(state),
-        totalLength: state.usersOrderList.entities.length
+        //totalLength: state.usersOrderList.entities.length
     }
 }
 
-export default connect(mapStateToProps, {loadUsersOrderList})(StatisticPaginator)
+export default connect(mapStateToProps, {loadUsersOrderList, getUserOrderList})(StatisticPaginator)

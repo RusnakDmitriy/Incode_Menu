@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {NavLink} from  'react-router-dom';
 import {verify} from '../AC';
 
-class Signin extends Component{
+class EmailVerification extends Component{
     constructor(props){
         super(props);
 
@@ -39,4 +39,4 @@ export default connect((state)=>{
     }
 }, (dispatch)=>({
     verify: (data)=>dispatch(verify(data))
-}))(Signin)
+}))(EmailVerification)

@@ -59,7 +59,7 @@ export const menuAdmin=[
                         {"src": "./img/food2.jpg", "text": "Картофель отварной молодой"},
                         {"src": "./img/food3.jpg", "text": "Биток Хмельницкий"},
                         {"src": "./img/food4.jpg", "text": "Свежий салат из капусты с огурцом"}
-                    ]
+                        ]
             },
             {
                 "dish":[
