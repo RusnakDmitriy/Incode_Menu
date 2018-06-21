@@ -18,9 +18,9 @@ class StatisticPaginator extends Component {
 
     getUsersOrdersList(){
         const {usersOrderList}=this.props;
-        console.log(usersOrderList[0]);
-        const ordersList = usersOrderList.map((item, i) => {console.log(item); return <li className="statisticTableLine" key={i}>
-                                                                            <span className="statisticTableColumnData">{item.date}</span>
+        console.log(usersOrderList);
+        const ordersList = usersOrderList.map((item, i) => {return <li className="statisticTableLine" key={i}>
+                                                                            <span className="statisticTableColumnData">{new Date(item.date).toUTCString()}</span>
                                                                             <span className="statisticTableColumnNumb">{item.menuNumber}</span>
                                                                             <span className="statisticTableColumnDish"><UsersOrdersListItem dishes={item.dishes} /></span>
                                                                         </li>});
@@ -28,9 +28,7 @@ class StatisticPaginator extends Component {
     }
 
     getpaginationPages(){
-        // const {totalLength}=this.props;
-        const {usersOrderList}=this.props;
-        const totalLength = (usersOrderList) ? 0 : usersOrderList.order.length;
+        const {totalLength}=this.props;
         const commentsPageAmount = Math.ceil(totalLength/5);
         const paginationPages = [...Array(commentsPageAmount)].map((numb,index) => {return <span key={index}><NavLink activeStyle={{color:'red'}} to={`/statistic/${index+1}`}>{index+1}</NavLink></span>});
         return <div className="paginationPages">Page: {paginationPages}</div>
@@ -54,7 +52,7 @@ class StatisticPaginator extends Component {
 const mapStateToProps=(state)=>{
     return {
         usersOrderList: paginationUsersOrderSelector(state),
-        //totalLength: state.usersOrderList.entities.length
+        totalLength: state.usersOrderList.entities.length
     }
 }
 

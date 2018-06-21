@@ -1,5 +1,7 @@
 import {MENU_CHOICE, GET_MENU_FOR_ADMIN, LOAD_AVAILABLE, LOAD_USER_ORDER_LIST, LOAD_USERS_PAGINATION, REGISTRATION, START, SUCCESS, FAIL, AUTHENTICATION, ENTER, ADMIN_MENU_SELECT, GET_USERS_LIST, CHANGE_USER_BALANCE, CHECKOUT, CANCEL_CHECKOUT} from '../constants';
 import { push } from 'react-router-redux';
+import axios from 'axios';
+
 
 export function getMenuItem(item, user){
     return {
@@ -165,4 +167,34 @@ export function getMenuForAdmin(){
             }))
     }
 };
+
+export function sendUserOrder(item){
+    return (dispatch)=>{
+        // const requestOptions = {
+        //     method:'POST',
+        //     headers: {
+        //         "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        //     },
+        //     credentials: 'include',
+        //     body: JSON.stringify(item)
+        // };
+
+        axios.post('http://localhost:3017/api/usersOrder', item)
+            .then(res=>{
+                if(res.status>=400){
+                    throw new Error(res.statusText)
+                }
+            })
+            .catch(error=>console.log(error))
+// fetch('http://localhost:3017/api/usersOrder', requestOptions)
+//             .then(res=>{
+//                 if(res.status>=400){
+//                     throw new Error(res.statusText)
+//                 }
+//                 return res.json()
+//             })
+//             .catch(error=>console.log(error))
+
+    }
+}
 

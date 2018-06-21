@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const UsersMenu  =require('./models/usersMenu');
 const UserOrderList = require('./models/userOrderList');
 const AdminSelectMenu = require('./models/adminSelectMenu');
+const UsersOrder = require('./models/usersOrder');
 mongoose.Promise = require('bluebird');
 
 mongoose.connect('mongodb://localhost/usersMenu');
@@ -12,7 +13,9 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
@@ -252,6 +255,40 @@ app.delete('/api/adminSelectMenu/menu/:id', function (req, res){
                 return res.send({ error: 'Server error' });
             }
         });
+    });
+});
+
+
+
+app.get('/api/getUsersOrder', (req, res)=>{
+    return UsersOrder.find(function (err, usersOrder) {
+        if (!err) {
+            return res.send(usersOrder);
+        } else {
+            res.statusCode = 500;
+            console.log('Internal error(%d): %s',res.statusCode,err.message);
+            return res.send({ error: 'Server error' });
+        }
+    })
+});
+
+app.post('/api/usersOrder', (req, res)=>{
+    console.log(req.body)
+    let usersOrder = new UsersOrder({id: req.body.id, list: req.body.list});
+    usersOrder.save(function (err) {
+        if (!err) {
+            console.log("order is added");
+            return res.send({ status: 'OK', usersOrder:usersOrder });
+        } else {
+            if(err.name == 'ValidationError'){
+                res.statusCode = 400;
+                res.send({ error: 'Validation error' });
+            } else {
+                res.statusCode = 500;
+                res.send({ error: 'Server error' });
+            }
+            console.log('Internal error(%d): %s',res.statusCode,err.message);
+        }
     });
 });
 

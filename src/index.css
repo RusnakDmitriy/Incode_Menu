@@ -283,7 +283,11 @@ p{
 }
 
 .paginationPages{
-  margin-top: 20px;
+  /*margin-top: 20px;*/
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translate(-50%);
 }
 
 .paginationPages>span{
