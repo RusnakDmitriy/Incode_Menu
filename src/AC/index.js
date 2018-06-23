@@ -53,10 +53,10 @@ export function verify(data){
     }
 }
 
-export function adminSelectMenu(id, index, selected){
+export function adminSelectMenu(id, index, number, selected){
     return {
         type: ADMIN_MENU_SELECT,
-        payload: {id, index, selected}
+        payload: {id, index, number, selected}
     }
 }
 

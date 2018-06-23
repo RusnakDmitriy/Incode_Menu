@@ -14,7 +14,7 @@ class ListOfItemsForAdmin extends Component {
                 <ul>
                     {items.map((item, i)=>{return  <li key={i} className="dish">
                         <div>
-                            <span><ItemMenuAdmin isActive={isActive} id={id} text={item} /></span>
+                            <span><ItemMenuAdmin isActive={isActive} id={id} number={i} text={item} /></span>
                         </div>
                     </li>})
                     }
