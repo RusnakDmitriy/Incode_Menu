@@ -266,10 +266,6 @@ p{
   display: inline-block;
 }
 
-.statisticTable>ul{
-  margin-bottom: 70px;
-}
-
 .statisticTableColumnData, .statisticTableColumnNumb{
   width: 20%;
 }
@@ -279,13 +275,12 @@ p{
 }
 
 .statisticTableLine{
-  margin: 40px 0;
+  margin: 2% 0;
 }
 
 .paginationPages{
-  /*margin-top: 20px;*/
   position: absolute;
-  bottom: 40px;
+  bottom: 20px;
   left: 50%;
   transform: translate(-50%);
 }

@@ -236,7 +236,11 @@ export function sendAdminMenu(id, body){
                 if(res.status>=400){
                     throw new Error(res.statusText)
                 }
+                return res
             })
+            .then(response=>dispatch({
+                type: CANCEL_CHECKOUT
+            }))
             .catch(error=>console.log(error))
     }
 }

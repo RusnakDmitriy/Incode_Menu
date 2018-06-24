@@ -88,6 +88,7 @@ app.delete('/api/menu/:id', function (req, res){
 
 app.put('/api/menu/:id', function (req, res){
     return UsersMenu.findByIdAndUpdate(req.params.id, req.body, function (err, menu) {
+        console.log(err)
         if(!menu) {
             res.statusCode = 404;
             return res.send({ error: 'Not found' });
