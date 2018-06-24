@@ -49,7 +49,7 @@ class Signup extends Component{
 
     render(){
         const {email, password, reppassword, alert}=this.state;
-
+        console.log('Please, enter email: someone@somewhare.gm.com');
         return (
             <div className="registrationForm">
                 <h3>Register with "Lunch Menu" app</h3>
