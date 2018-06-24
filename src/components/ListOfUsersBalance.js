@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
-//import {toJS} from 'immutable';
 import {usersList} from '../dataMenu';
 import {getUsersFromStore} from '../AC';
 import InputChangeBalance from "./InputChangeBalance";
@@ -11,14 +10,15 @@ class ListOfUsersBalance extends Component {
     }
 
     componentDidMount(){
-        this.props.getUsersFromStore(usersList);
+        this.props.getUsersFromStore();
     }
 
 
     render() {
-        const {usersList}=this.props;
-        const getUsersList = usersList.map((item)=>{
-            return <li className="usersListItem" key={item.id}><span>{item.data.email}:   </span><span><InputChangeBalance id={item.id} /></span></li>
+        const {usersList, loaded, loading}=this.props;
+        if(loading) return (<div>Loading...</div>);
+        const getUsersList = usersList.map((item, i)=>{
+            return <li className="usersListItem" key={item.id}><span>{item.data.email}:   </span><span><InputChangeBalance id={item.id} email={item.data.email} dbID={item._id} num={i} /></span></li>
         });
 
         return (
@@ -33,6 +33,8 @@ class ListOfUsersBalance extends Component {
 
 export default connect((state)=>{
     return {
-        usersList: state.usersList.entities
+        usersList: state.usersList.entities,
+        loaded: state.usersList.loaded,
+        loading: state.usersList.loading
     }
 }, {getUsersFromStore})(ListOfUsersBalance);

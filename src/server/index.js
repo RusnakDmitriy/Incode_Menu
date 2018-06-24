@@ -5,6 +5,7 @@ const UsersMenu  =require('./models/usersMenu');
 const UserOrderList = require('./models/userOrderList');
 const AdminSelectMenu = require('./models/adminSelectMenu');
 const UsersOrder = require('./models/usersOrder');
+const UsersBalance = require('./models/usersBalance');
 mongoose.Promise = require('bluebird');
 
 mongoose.connect('mongodb://localhost/usersMenu');
@@ -86,14 +87,13 @@ app.delete('/api/menu/:id', function (req, res){
 });
 
 app.put('/api/menu/:id', function (req, res){
-    return UsersMenu.findById(req.params.id, function (err, menu) {
+    return UsersMenu.findByIdAndUpdate(req.params.id, req.body, function (err, menu) {
         if(!menu) {
             res.statusCode = 404;
             return res.send({ error: 'Not found' });
         }
 
-        // menu._id = req.body._id;
-        menu.id = req.body;
+        //menu.id = req.body;
 
         return menu.save(function (err) {
             if (!err) {
@@ -290,6 +290,96 @@ app.post('/api/usersOrder', (req, res)=>{
             console.log('Internal error(%d): %s',res.statusCode,err.message);
         }
     });
+});
+
+
+app.get('/api/usersBalance', (req, res)=>{
+    return UsersBalance.find(function (err, usersBalance) {
+        if (!err) {
+            return res.send(usersBalance);
+        } else {
+            res.statusCode = 500;
+            console.log('Internal error(%d): %s',res.statusCode,err.message);
+            return res.send({ error: 'Server error' });
+        }
+    })
+});
+
+app.post('/api/usersBalance/setData', (req, res)=>{
+    let usersBalance = new UsersBalance({id: req.body.id, data: req.body.data});
+    usersBalance.save(function (err) {
+        if (!err) {
+            console.log("user added");
+            return res.send({ status: 'OK', usersBalance:usersBalance });
+        } else {
+            console.log(err);
+            if(err.name == 'ValidationError'){
+                res.statusCode = 400;
+                res.send({ error: 'Validation error' });
+            } else {
+                res.statusCode = 500;
+                res.send({ error: 'Server error' });
+            }
+            console.log('Internal error(%d): %s',res.statusCode,err.message);
+        }
+    });
+});
+
+app.delete('/api/usersBalance/:id', function (req, res){
+    return UsersBalance.findById(req.params.id, function (err, usersBalance) {
+        if(!usersBalance) {
+            res.statusCode = 404;
+            return res.send({ error: 'Not found' });
+        }
+        return usersBalance.remove(function (err) {
+            if (!err) {
+                console.log("user removed");
+                return res.send({ status: 'OK' });
+            } else {
+                res.statusCode = 500;
+                console.log('Internal error(%d): %s',res.statusCode,err.message);
+                return res.send({ error: 'Server error' });
+            }
+        });
+    });
+});
+
+app.put('/api/usersBalance/change/:id', function (req, res){
+    return UsersBalance.findByIdAndUpdate(req.params.id, {$set:{"data": req.body}}, {new: true, runValidators: true}, function (err, usersBalance) {
+        if(!usersBalance) {
+            res.statusCode = 404;
+            return res.send({ error: 'Not found' });
+        }
+
+        return usersBalance.save(function (err) {
+            if (!err) {
+                console.log("user balance is updated");
+                return res.send({ status: 'OK', usersBalance:usersBalance });
+            } else {
+                if(err.name == 'ValidationError') {
+                    res.statusCode = 400;
+                    res.send({ error: 'Validation error' });
+                } else {
+                    res.statusCode = 500;
+                    res.send({ error: 'Server error' });
+                }
+                console.log('Internal error(%d): %s',res.statusCode,err.message);
+            }
+        });
+    });
+});
+
+app.get('/api/usersBalance/:email', (req, res)=>{
+    return UsersBalance.find(function (err, usersBalance) {
+        if (!err) {
+            const filtratedusersBalance = usersBalance.filter((item)=> (item.data.email===req.params.email));
+            return res.send(filtratedusersBalance);
+        } else {
+            res.statusCode = 500;
+            console.log('Internal error(%d): %s',res.statusCode,err.message);
+            return res.send({ error: 'Server error' });
+        }
+    })
 });
 
 

@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
 import {NavLink} from  'react-router-dom';
+import {connect} from "react-redux";
+import {getOwnBalance} from '../AC';
 
 class MainMenu extends Component {
     constructor(props){
         super(props);
     }
 
+    componentDidMount(){
+        this.props.getOwnBalance(localStorage.getItem('incodeMenuEmail'));
+    }
+
     render() {
+        const {loading, ownBalance}=this.props;
+        if(loading) return (<div></div>);
         return (
             <div className="mainMenu clearfix">
                 <div>
@@ -15,7 +23,7 @@ class MainMenu extends Component {
                     <span className="menuItem"><NavLink activeStyle={{color:'blue'}} to='/admin'>Admin</NavLink></span>
                 </div>
                 <div>
-                    <span className="menuItem">Balance: </span>
+                    <span className="menuItem">Balance: {ownBalance}</span>
                     <span className="menuItem">e-mail: someone@somewhere.com</span>
                     <span className="menuItem"><NavLink to="/signin">Signout</NavLink></span>
                 </div>
@@ -24,4 +32,12 @@ class MainMenu extends Component {
     }
 }
 
-export default MainMenu;
+const mapStateToProps=(state)=>{
+    return {
+        userBalance: state.usersList.entities,
+        loading: state.usersList.loading,
+        ownBalance: state.usersList.ownBalance
+    }
+}
+
+export default connect(mapStateToProps, {getOwnBalance})(MainMenu);

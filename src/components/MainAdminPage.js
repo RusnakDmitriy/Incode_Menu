@@ -38,7 +38,7 @@ class MainAdminPage extends Component {
                         <div className="menuNumber">{item.id}</div>
                     </li>
         });
-        console.log(this.props.admin);
+
         return (
             <div className="mainAdminScreen">
                 {modal.checkout ? (<div className="notActive"></div>) : (<div></div>)}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
-import {changeUserBalance} from '../AC';
+import {changeUserBalance, sendUserBalanceChange} from '../AC';
 
 class InputChangeBalance extends Component {
     constructor(props){
@@ -11,9 +11,10 @@ class InputChangeBalance extends Component {
     }
 
     handleChangeBalance=(ev)=>{
-        const {id}=this.props;
+        const {id, email, dbID, num}=this.props;
         this.setState({balance: ev.target.value});
-        this.props.changeUserBalance(id, ev.target.value);
+        this.props.changeUserBalance(num+1, ev.target.value);
+        this.props.sendUserBalanceChange(dbID, email, ev.target.value);
     }
 
     render() {
@@ -25,4 +26,4 @@ class InputChangeBalance extends Component {
     }
 }
 
-export default connect(null, {changeUserBalance})(InputChangeBalance);
+export default connect(null, {changeUserBalance, sendUserBalanceChange})(InputChangeBalance);

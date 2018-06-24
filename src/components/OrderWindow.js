@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {menuQuantity} from '../dataMenu';
-import {cancelCheckout} from '../AC';
+import {cancelCheckout, sendAdminMenu} from '../AC';
 
 class OrderWindow extends Component{
     constructor(props){
@@ -9,7 +9,9 @@ class OrderWindow extends Component{
     }
 
     handleSendOrder=()=>{
-        this.props.cancelCheckout()
+        //this.props.cancelCheckout()
+        const {sendMenu, menuID}=this.props;
+        this.props.sendAdminMenu(menuID, sendMenu)
     }
 
     handleCancelOrder=()=>{
@@ -30,4 +32,11 @@ class OrderWindow extends Component{
     }
 }
 
-export default connect(null, {cancelCheckout})(OrderWindow)
+const mapStateToProps = (state) => {
+    return {
+        menuID: state.getAvailableMenu._id,
+        sendMenu: state.adminSelectedMenu.entities
+    }
+}
+
+export default connect(mapStateToProps, {cancelCheckout, sendAdminMenu})(OrderWindow)

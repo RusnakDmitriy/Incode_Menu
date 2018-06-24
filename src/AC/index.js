@@ -1,4 +1,4 @@
-import {MENU_CHOICE, GET_MENU_FOR_ADMIN, LOAD_AVAILABLE, LOAD_USER_ORDER_LIST, LOAD_USERS_PAGINATION, REGISTRATION, START, SUCCESS, FAIL, AUTHENTICATION, ENTER, ADMIN_MENU_SELECT, GET_USERS_LIST, CHANGE_USER_BALANCE, CHECKOUT, CANCEL_CHECKOUT} from '../constants';
+import {MENU_CHOICE, GET_OWN_BALANCE, GET_MENU_FOR_ADMIN, LOAD_AVAILABLE, LOAD_USER_ORDER_LIST, LOAD_USERS_PAGINATION, REGISTRATION, START, SUCCESS, FAIL, AUTHENTICATION, ENTER, ADMIN_MENU_SELECT, GET_USERS_LIST, CHANGE_USER_BALANCE, CHECKOUT, CANCEL_CHECKOUT} from '../constants';
 import { push } from 'react-router-redux';
 import axios from 'axios';
 
@@ -34,7 +34,6 @@ export function verify(data){
         };
 
         fetch('http://localhost:3000', requestOptions)
-            //.then(res=>res.json())
             .then(response=> {
                 dispatch(push('/'));
                 dispatch({
@@ -60,10 +59,27 @@ export function adminSelectMenu(id, index, number, selected){
     }
 }
 
-export function getUsersFromStore(usersList){
-    return {
-        type: GET_USERS_LIST,
-        payload: {usersList}
+export function getUsersFromStore(){
+    return (dispatch)=>{
+        dispatch({
+            type: GET_USERS_LIST+START
+        });
+
+        fetch('http://localhost:3017/api/usersBalance')
+            .then(res=>{
+                if(res.status>=400){
+                    throw new Error(res.statusText)
+                }
+                return res.json()
+            })
+            .then(response=>dispatch({
+                type: GET_USERS_LIST+SUCCESS,
+                payload: {response}
+            }))
+            .catch(error=>dispatch({
+                type: GET_USERS_LIST+FAIL,
+                payload: {error}
+            }))
     }
 }
 
@@ -170,15 +186,6 @@ export function getMenuForAdmin(){
 
 export function sendUserOrder(item){
     return (dispatch)=>{
-        // const requestOptions = {
-        //     method:'POST',
-        //     headers: {
-        //         "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-        //     },
-        //     credentials: 'include',
-        //     body: JSON.stringify(item)
-        // };
-
         axios.post('http://localhost:3017/api/usersOrder', item)
             .then(res=>{
                 if(res.status>=400){
@@ -186,15 +193,50 @@ export function sendUserOrder(item){
                 }
             })
             .catch(error=>console.log(error))
-// fetch('http://localhost:3017/api/usersOrder', requestOptions)
-//             .then(res=>{
-//                 if(res.status>=400){
-//                     throw new Error(res.statusText)
-//                 }
-//                 return res.json()
-//             })
-//             .catch(error=>console.log(error))
-
     }
 }
 
+export function sendUserBalanceChange(dbID, email, value){
+    return (dispatch)=>{
+        const body={
+            "email": email,
+            "balance": value
+        }
+        axios.put(`http://localhost:3017/api/usersBalance/change/${dbID}`, body)
+            .then(res=>{
+                if(res.status>=400){
+                    throw new Error(res.statusText)
+                }
+            })
+            .catch(error=>console.log(error))
+    }
+}
+
+export function getOwnBalance(email){
+    return (dispatch)=>{
+        axios.get(`http://localhost:3017/api/usersBalance/${email}`)
+            .then(res=>{
+                if(res.status>=400){
+                    throw new Error(res.statusText)
+                }
+                return res.data[0].data.balance
+            })
+            .then(response=>dispatch({
+                type: GET_OWN_BALANCE,
+                payload: response
+            }))
+            .catch(error=>console.log(error))
+    }
+}
+
+export function sendAdminMenu(id, body){
+    return (dispatch)=>{
+        axios.put(`http://localhost:3017/api/menu/${id}`, body)
+            .then(res=>{
+                if(res.status>=400){
+                    throw new Error(res.statusText)
+                }
+            })
+            .catch(error=>console.log(error))
+    }
+}

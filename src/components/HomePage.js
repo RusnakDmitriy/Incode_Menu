@@ -73,7 +73,8 @@ const mapStateToProps = (state) => {
     return {
         menu: state.getAvailableMenu.entities,
         loading: state.getAvailableMenu.loading,
-        loaded: state.getAvailableMenu.loaded
+        loaded: state.getAvailableMenu.loaded,
+        menuID: state.getAvailableMenu._id
     }
 }
 
